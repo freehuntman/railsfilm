@@ -1,5 +1,7 @@
 <div class="col-md-12">
   <div class="film">
+
+    <%= link_to("Write a Review", new_film_review_path(@film), class: "btn btn-default pull-right") %>
     <% if current_user && current_user == @film.user %>
       <%= link_to("Edit", edit_film_path(@film), class: "btn btn-primary pull-right ")%>
     <% end %>
