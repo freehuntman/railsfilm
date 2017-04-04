@@ -1,0 +1,22 @@
+<hr>
+<%= form_for @film do |f| %>
+
+<% if @film.errors.any? %>
+<ul>
+  <% @film.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+</ul>
+<% end %>
+
+
+电影标题
+<%= f.text_field :title %>
+<br>
+电影叙述
+<br>
+<%= f.text_area :description %>
+<br>
+
+<%= f.submit"submiting", :disable_with => 'Submiting...' %>
+<% end %>
