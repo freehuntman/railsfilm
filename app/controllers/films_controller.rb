@@ -1,5 +1,5 @@
 class FilmsController < ApplicationController
-  before_action :authenticate_user! , only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user! , only: [:new, :create, :edit, :update, :destroy, :join, :quit]
   before_action :find_film_and_check_permission, only: [:edit, :update, :destory]
 
   def index
@@ -46,6 +46,36 @@ class FilmsController < ApplicationController
     flash[:alert] = "What a shame!"
     redirect_to films_path
   end
+
+
+
+
+   def join
+    @film = Film.find(params[:id])
+
+     if !current_user.is_member_of?(@film)
+       current_user.join!(@film)
+       flash[:notice] = "加入本讨论版成功！"
+     else
+       flash[:warning] = "你已经是本讨论版成员了！"
+     end
+
+     redirect_to film_path(@film)
+   end
+
+   def quit
+     @film = Film.find(params[:id])
+
+     if current_user.is_member_of?(@film)
+       current_user.quit!(@film)
+       flash[:alert] = "已退出本讨论版！"
+     else
+       flash[:warning] = "你不是本讨论版成员，怎么退出 XD"
+     end
+
+     redirect_to film_path(@film)
+   end
+
 
 
 
