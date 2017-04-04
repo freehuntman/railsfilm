@@ -8,7 +8,7 @@ class FilmsController < ApplicationController
 
   def show
     @film = Film.find(params[:id])
-    @reviews = @film.reviews
+    @reviews = @film.reviews.recent
   end
 
   def edit
