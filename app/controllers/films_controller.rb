@@ -17,15 +17,23 @@ class FilmsController < ApplicationController
 
   def create
     @film = Film.new(film_params)
-    @film.save
+
+    if @film.save
       redirect_to films_path, notice: "You have created an awesome film!"
+    else
+      render :new
+    end
   end
 
   def update
     @film = Film.find(params[:id])
-    @film.update(film_params)
-    flash[:notice] = "Update Success!"
-    redirect_to films_path
+
+    if @film.update(film_params)
+      flash[:notice] = "Update Success!"
+      redirect_to films_path
+    else
+      render :edit
+    end
   end
 
   def destroy
